@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>igDatachart</title>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <link href="http://cdn-na.infragistics.com/igniteui/2023.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="http://cdn-na.infragistics.com/igniteui/2023.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+
+    <script src="http://cdn-na.infragistics.com/igniteui/2023.2/latest/js/infragistics.core.js"></script>
+    <script src="http://cdn-na.infragistics.com/igniteui/2023.2/latest/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+
+    <div id="chart"></div>
+    <script>
+
+$(function () {
+
+	var data = [
+		{
+			"Item": "Item1",
+			"Series1": {myName:"test1", myValue:40},
+		},
+		{
+			"Item": "Item2",
+			"Series1": {myName:"test2", myValue:10},
+		},
+		{
+			"Item": "Item3",
+			"Series1": {myName:"test3", myValue:30},
+		}
+	];
+
+    $("#chart").igDataChart({
+        dataSource: data,
+        height: "400px",
+        width: "500px",
+        axes: [{
+            name: "xAxis",
+            type: "categoryX",
+            label: "Item"
+        }, {
+            name: "yAxis",
+            type: "numericY",
+            minimumValue: 0,
+        }],
+		series: [{
+                    name: "series1",
+                    type: "column",
+					xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "Series1!GetMyValue",
+					coercionMethods: {
+						GetMyValue: function (val) {
+							return val.myValue;
+						}
+					}
+                }]
+    });
+
+});
+    </script>
+
+</body>
+</html>
